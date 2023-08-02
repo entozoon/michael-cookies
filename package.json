@@ -4,7 +4,8 @@
   "description": "Simple interface for browser cookies.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc -w",
+    "prepublishOnly": "tsc"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/entozoon/michael-cookies/issues"
   },
-  "homepage": "https://github.com/entozoon/michael-cookies#readme"
+  "homepage": "https://github.com/entozoon/michael-cookies#readme",
+  "dependencies": {
+    "typescript": "^5.1.6"
+  }
 }
