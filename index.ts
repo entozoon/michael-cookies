@@ -3,9 +3,9 @@ export const setCookie = ({
   value,
   expiryDays,
 }: {
-  key: string,
-  value: string,
-  expiryDays: number,
+  key: string;
+  value: string;
+  expiryDays?: number;
 }): void => {
   const expiryDate = new Date(Date.now() + expiryDays * 86400000);
   const encodedValue = encodeURI(value);
