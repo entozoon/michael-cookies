@@ -1,0 +1,19 @@
+{
+  "name": "michael-cookies",
+  "version": "1.0.0",
+  "description": "Simple interface for browser cookies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/entozoon/michael-cookies.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/entozoon/michael-cookies/issues"
+  },
+  "homepage": "https://github.com/entozoon/michael-cookies#readme"
+}
