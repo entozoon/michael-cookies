@@ -7,10 +7,10 @@ export const setCookie = ({
   value: string;
   expiryDays?: number;
 }): void => {
-  const expiryDate = new Date(Date.now() + expiryDays * 86400000);
   const encodedValue = encodeURI(value);
   let cookieString = `${key}=${encodedValue}`;
   if (expiryDays) {
+    const expiryDate = new Date(Date.now() + expiryDays * 86400000);
     const expiryString = `;expires=${expiryDate.toUTCString()}`;
     cookieString += expiryString;
   }
