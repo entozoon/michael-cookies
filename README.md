@@ -1,6 +1,6 @@
 # michael-cookies
 
-Simple interface for browser cookies.
+Simple, asynchronous interface for browser cookies.
 
 ```bash
 npm i michael-cookies
@@ -24,13 +24,15 @@ setCookie({ key: "session", value: "user123", expiryDays: 7 });
 
 ### `getCookie`
 
-Retrieves a cookie value by its key.
+Retrieves a cookie object by its key.
 
 ```javascript
 import { getCookie } from "michael-cookies";
 
-const theme = getCookie({ key: "theme" });
-console.log(theme); // 'dark'
+const themeCookie = getCookie({ key: "theme" });
+if (themeCookie) {
+  console.log(themeCookie.value); // 'dark'
+}
 ```
 
 ### `getCookiesByPrefix`
@@ -44,6 +46,32 @@ import { setCookie, getCookiesByPrefix } from "michael-cookies";
 setCookie({ key: "user.name", value: "Michael" });
 setCookie({ key: "user.preference", value: "cats" });
 
+// Get cookies by prefix
 const userCookies = getCookiesByPrefix({ prefix: "user." });
-console.log(userCookies); // { 'user.name': 'Michael', 'user.preference': 'cats' }
+console.log(userCookies);
+// [
+//   { key: 'user.name', value: 'Michael' },
+//   { key: 'user.preference', value: 'cats' }
+// ]
+```
+
+### `getAllCookies`
+
+Retrieves all cookies.
+
+```javascript
+import { getAllCookies } from "michael-cookies";
+
+const allCookies = getAllCookies();
+console.log(allCookies);
+```
+
+### `deleteCookie`
+
+Deletes a cookie by its key.
+
+```javascript
+import { deleteCookie } from "michael-cookies";
+
+deleteCookie({ key: "theme" });
 ```
