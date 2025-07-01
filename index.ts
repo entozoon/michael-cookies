@@ -2,10 +2,12 @@ export const setCookie = ({
   key,
   value,
   expiryDays,
+  document = window.document,
 }: {
   key: string;
   value: string;
   expiryDays?: number;
+  document?: Document;
 }): void => {
   const encodedValue = encodeURI(value);
   let cookieString = `${key}=${encodedValue}`;
@@ -17,11 +19,29 @@ export const setCookie = ({
   cookieString += ";path=/";
   document.cookie = cookieString;
 };
-export const getCookie = (key: string): string | boolean | undefined => {
+export const getCookie = (
+  key: string,
+  document: Document = window.document
+): string | boolean | undefined => {
   // https://stackoverflow.com/a/21125098/3098773
   const match = document.cookie.match(new RegExp("(^| )" + key + "=([^;]+)"));
   // Return undefined, boolean, or string depending on what comes back
   if (!match || typeof match[2] === "undefined") return undefined;
   const value = match[2];
   return value === "true" ? true : value === "false" ? false : decodeURI(value);
+};
+export const getCookiesByPrefix = (
+  prefix: string,
+  document: Document = window.document
+): Record<string, string> => {
+  const cookies = document.cookie.split(";");
+  const result: Record<string, string> = {};
+  for (const cookie of cookies) {
+    const [key, value] = cookie.split("=").map((c) => c.trim());
+    if (key.startsWith(prefix)) {
+      const decodedValue = decodeURI(value);
+      result[key] = decodedValue;
+    }
+  }
+  return result;
 };
