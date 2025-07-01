@@ -1,6 +1,6 @@
 {
   "name": "michael-cookies",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Simple interface for browser cookies.",
   "main": "index.js",
   "scripts": {
