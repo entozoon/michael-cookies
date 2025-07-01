@@ -1,7 +1,6 @@
 export interface Cookie {
   key: string;
   value: string;
-  expiryDays?: number;
 }
 export const setCookie = ({
   key,
