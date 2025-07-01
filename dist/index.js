@@ -41,8 +41,8 @@ var setCookie = function (_a) {
     document.cookie = cookieString;
 };
 exports.setCookie = setCookie;
-var getCookie = function (key, document) {
-    if (document === void 0) { document = window.document; }
+var getCookie = function (_a) {
+    var key = _a.key, _b = _a.document, document = _b === void 0 ? window.document : _b;
     var match = document.cookie.match(new RegExp("(^| )" + key + "=([^;]+)"));
     if (!match || typeof match[2] === "undefined")
         return undefined;
@@ -50,15 +50,15 @@ var getCookie = function (key, document) {
     return value === "true" ? true : value === "false" ? false : decodeURI(value);
 };
 exports.getCookie = getCookie;
-var getCookiesByPrefix = function (prefix, document) {
-    var e_1, _a;
-    if (document === void 0) { document = window.document; }
+var getCookiesByPrefix = function (_a) {
+    var e_1, _b;
+    var prefix = _a.prefix, _c = _a.document, document = _c === void 0 ? window.document : _c;
     var cookies = document.cookie.split(";");
     var result = {};
     try {
         for (var cookies_1 = __values(cookies), cookies_1_1 = cookies_1.next(); !cookies_1_1.done; cookies_1_1 = cookies_1.next()) {
             var cookie = cookies_1_1.value;
-            var _b = __read(cookie.split("=").map(function (c) { return c.trim(); }), 2), key = _b[0], value = _b[1];
+            var _d = __read(cookie.split("=").map(function (c) { return c.trim(); }), 2), key = _d[0], value = _d[1];
             if (key.startsWith(prefix)) {
                 var decodedValue = decodeURI(value);
                 result[key] = decodedValue;
@@ -68,7 +68,7 @@ var getCookiesByPrefix = function (prefix, document) {
     catch (e_1_1) { e_1 = { error: e_1_1 }; }
     finally {
         try {
-            if (cookies_1_1 && !cookies_1_1.done && (_a = cookies_1.return)) _a.call(cookies_1);
+            if (cookies_1_1 && !cookies_1_1.done && (_b = cookies_1.return)) _b.call(cookies_1);
         }
         finally { if (e_1) throw e_1.error; }
     }

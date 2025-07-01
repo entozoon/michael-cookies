@@ -19,10 +19,13 @@ export const setCookie = ({
   cookieString += ";path=/";
   document.cookie = cookieString;
 };
-export const getCookie = (
-  key: string,
-  document: Document = window.document
-): string | boolean | undefined => {
+export const getCookie = ({
+  key,
+  document = window.document,
+}: {
+  key: string;
+  document?: Document;
+}): string | boolean | undefined => {
   // https://stackoverflow.com/a/21125098/3098773
   const match = document.cookie.match(new RegExp("(^| )" + key + "=([^;]+)"));
   // Return undefined, boolean, or string depending on what comes back
@@ -30,10 +33,13 @@ export const getCookie = (
   const value = match[2];
   return value === "true" ? true : value === "false" ? false : decodeURI(value);
 };
-export const getCookiesByPrefix = (
-  prefix: string,
-  document: Document = window.document
-): Record<string, string> => {
+export const getCookiesByPrefix = ({
+  prefix,
+  document = window.document,
+}: {
+  prefix: string;
+  document?: Document;
+}): Record<string, string> => {
   const cookies = document.cookie.split(";");
   const result: Record<string, string> = {};
   for (const cookie of cookies) {

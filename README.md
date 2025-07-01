@@ -29,7 +29,7 @@ Retrieves a cookie value by its key.
 ```javascript
 import { getCookie } from "michael-cookies";
 
-const theme = getCookie("theme");
+const theme = getCookie({ key: "theme" });
 console.log(theme); // 'dark'
 ```
 
@@ -44,6 +44,6 @@ import { setCookie, getCookiesByPrefix } from "michael-cookies";
 setCookie({ key: "user.name", value: "Michael" });
 setCookie({ key: "user.preference", value: "cats" });
 
-const userCookies = getCookiesByPrefix("user.");
+const userCookies = getCookiesByPrefix({ prefix: "user." });
 console.log(userCookies); // { 'user.name': 'Michael', 'user.preference': 'cats' }
 ```
