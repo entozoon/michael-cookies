@@ -20,6 +20,16 @@ setCookie({ key: "theme", value: "dark" });
 
 // Set a cookie that expires in 7 days
 setCookie({ key: "session", value: "user123", expiryDays: 7 });
+
+// Set a cookie with SameSite=None and Secure attributes
+setCookie({
+  key: "tracking",
+  value: "xyz",
+  attributes: {
+    SameSite: "None",
+    Secure: true,
+  },
+});
 ```
 
 ### `getCookie`
@@ -73,5 +83,15 @@ Deletes a cookie by its key.
 ```javascript
 import { deleteCookie } from "michael-cookies";
 
+// Delete a simple cookie
 deleteCookie({ key: "theme" });
+
+// Delete a cookie with attributes
+deleteCookie({
+  key: "tracking",
+  attributes: {
+    SameSite: "None",
+    Secure: true,
+  },
+});
 ```

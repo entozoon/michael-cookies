@@ -1,4 +1,15 @@
 "use strict";
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -18,7 +29,8 @@ var __read = (this && this.__read) || function (o, n) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteCookie = exports.getCookiesByPrefix = exports.getCookie = exports.getAllCookies = exports.parseCookies = exports.setCookie = void 0;
 var setCookie = function (_a) {
-    var key = _a.key, value = _a.value, expiryDays = _a.expiryDays;
+    var e_1, _b;
+    var key = _a.key, value = _a.value, expiryDays = _a.expiryDays, attributes = _a.attributes;
     var encodedValue = encodeURI(value);
     var cookieString = "".concat(key, "=").concat(encodedValue);
     if (expiryDays) {
@@ -27,6 +39,24 @@ var setCookie = function (_a) {
         cookieString += expiryString;
     }
     cookieString += ";path=/";
+    if (attributes) {
+        try {
+            for (var _c = __values(Object.entries(attributes)), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var _e = __read(_d.value, 2), attrKey = _e[0], attrValue = _e[1];
+                cookieString += ";".concat(attrKey);
+                if (attrValue !== true) {
+                    cookieString += "=".concat(attrValue);
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_d && !_d.done && (_b = _c.return)) _b.call(_c);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+    }
     document.cookie = cookieString;
 };
 exports.setCookie = setCookie;
@@ -52,7 +82,7 @@ var getCookiesByPrefix = function (_a) {
 };
 exports.getCookiesByPrefix = getCookiesByPrefix;
 var deleteCookie = function (_a) {
-    var key = _a.key;
-    (0, exports.setCookie)({ key: key, value: "", expiryDays: -1 });
+    var key = _a.key, attributes = _a.attributes;
+    (0, exports.setCookie)({ key: key, value: "", expiryDays: -1, attributes: attributes });
 };
 exports.deleteCookie = deleteCookie;
