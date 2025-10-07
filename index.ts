@@ -6,10 +6,12 @@ export const setCookie = ({
   key,
   value,
   expiryDays,
+  attributes,
 }: {
   key: string;
   value: string;
   expiryDays?: number;
+  attributes?: { [key: string]: string | boolean };
 }): void => {
   const encodedValue = encodeURI(value);
   let cookieString = `${key}=${encodedValue}`;
@@ -19,6 +21,14 @@ export const setCookie = ({
     cookieString += expiryString;
   }
   cookieString += ";path=/";
+  if (attributes) {
+    for (const [attrKey, attrValue] of Object.entries(attributes)) {
+      cookieString += `;${attrKey}`;
+      if (attrValue !== true) {
+        cookieString += `=${attrValue}`;
+      }
+    }
+  }
   document.cookie = cookieString;
 };
 export const parseCookies = (cookieString: string): Cookie[] => {
@@ -48,6 +58,12 @@ export const getCookiesByPrefix = ({
 }): Cookie[] => {
   return cookies.filter((cookie) => cookie.key.startsWith(prefix));
 };
-export const deleteCookie = ({ key }: { key: string }): void => {
-  setCookie({ key, value: "", expiryDays: -1 });
+export const deleteCookie = ({
+  key,
+  attributes,
+}: {
+  key: string;
+  attributes?: { [key: string]: string | boolean };
+}): void => {
+  setCookie({ key, value: "", expiryDays: -1, attributes });
 };
