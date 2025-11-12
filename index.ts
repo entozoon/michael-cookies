@@ -2,6 +2,23 @@ export interface Cookie {
   key: string;
   value: string;
 }
+
+const hasSameSiteNoneSupport = () => {
+  const userAgent = navigator.userAgent;
+  // Safari on iOS 12 and macOS 10.14 are known to have issues.
+  if (
+    /iP(ad|hone|od).+Version\/12\.\d+.*Safari/.test(userAgent) ||
+    /Macintosh.+Version\/12\.\d+.*Safari/.test(userAgent)
+  ) {
+    return false;
+  }
+  // Chrome 51-66
+  if (/Chrom(e|ium)\/(5[1-6]|6[0-6])/.test(userAgent)) {
+    return false;
+  }
+  return true;
+};
+
 export const setCookie = ({
   key,
   value,
@@ -22,7 +39,16 @@ export const setCookie = ({
   }
   cookieString += ";path=/";
   if (attributes) {
-    for (const [attrKey, attrValue] of Object.entries(attributes)) {
+    for (let [attrKey, attrValue] of Object.entries(attributes)) {
+      if (attrKey.toLowerCase() === "samesite" && attrValue === "None") {
+        if (!hasSameSiteNoneSupport()) {
+          continue; // Skip SameSite=None for incompatible browsers
+        }
+        // Ensure Secure is set with SameSite=None
+        if (!attributes.Secure) {
+          cookieString += ";Secure";
+        }
+      }
       cookieString += `;${attrKey}`;
       if (attrValue !== true) {
         cookieString += `=${attrValue}`;
